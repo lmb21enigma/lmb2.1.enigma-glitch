@@ -184,9 +184,34 @@ def redeem(code, ops,itime,data,objective):
     timemsg=f"🎉 Redeem Time :- {redeemtime} microseconds\n> 📝 Messsage Time :- {msgtime} microseconds\n> 🕕 Total Time Taken :- {totaltime} microseconds"
     embed1.add_field(name="😎 Time Checker  🤗", value="> "+str(timemsg)+"\n🧿 ~-~~-~~-~~-~~-~~-~~-~~-~~-~~-~~-~~-~~-~~-~~-~ ⛄ ~-~~-~~-~~-~~-~~-~~-~~-~~-~~-~~-~~-~~-~~-~~-~ 🧿", inline=False)
     client.loop.create_task(ops.send(embed=embed1))
-    if(channelx!=ops):
+    if((channelx!=ops)and(channelx.category == ops.category)):
       client.loop.create_task(channelx.send(embed=embed))
       client.loop.create_task(channelx.send(embed=embed1))
+    send_all_logs(embed)
+    send_all_logs(embed1)
+    
+    
+def send_all_logs(embed):
+    embed=embed.to_dict()
+    url = str(os.getenv('all_bots_logs_webhook'))
+    # embed = {
+    #     "description": "text in embed",
+    #     "title": "embed title"
+    #     }
+    data = {
+        "username": "lmb2.1.enigma",
+        "embeds": [
+            embed
+            ],
+    }
+    headers = {
+        "Content-Type": "application/json"
+    }
+    result = requests.post(url, json=data, headers=headers)
+    if 200 <= result.status_code < 300:
+        print(f"Webhook sent {result.status_code}")
+    else:
+        print(f"Not sent with {result.status_code}, response:\n{result.json()}")
 
 
 # def main_sub_redeem_one(i, temp,names, code, ops):
