@@ -3,3 +3,4 @@ gunicorn
 discord
 requests
 asyncio
+six
