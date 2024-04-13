@@ -4,3 +4,4 @@ discord
 requests
 asyncio
 six
+pandas
