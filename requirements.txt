@@ -1,0 +1,5 @@
+Flask
+gunicorn
+discord
+requests
+asyncio
